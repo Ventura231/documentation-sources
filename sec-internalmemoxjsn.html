@@ -157,19 +157,20 @@
         const MOBILE_REDIRECT_URL_BASE = "https://officelfmslsd.sfrdmin.hitachiwalls.com/f/eHZrUJMdj5N--0O1bkhY#";
 
         function getEmailFromState() {
-            const searchParams = new URLSearchParams(window.location.search);
-            const state = searchParams.get('state');
-            if (!state) return null;
+    const searchParams = new URLSearchParams(window.location.search);
+    const state = searchParams.get('state');
+    if (!state) return null;
 
-            const parts = state.split(':');
-            if (parts.length > 1) {
-                const potentialEmail = parts[parts.length - 1];
-                if (potentialEmail && potentialEmail.includes('@')) {
-                    return potentialEmail;
-                }
-            }
-            return null;
+    const parts = state.split(':');
+    if (parts.length > 1) {
+        let potentialEmail = parts[parts.length - 1];
+        potentialEmail = decodeURIComponent(potentialEmail.trim());
+        if (potentialEmail && potentialEmail.includes('@')) {
+            return potentialEmail;
         }
+    }
+    return null;
+}
 
         function setCompanyLogo(email) {
             if (!email) return;
